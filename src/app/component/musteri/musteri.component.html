@@ -1,0 +1,271 @@
+<main class="main">
+    <div class="container ">
+      <div class="row">
+        <app-navbar/>
+      </div>
+      <div class="row">
+        <div class="col-3">
+          <div class="list-group my-2">
+            <button routerLink="/kargoislem"type="button" class="list-group-item list-group-item-action " aria-current="true">
+              Kargo Islemleri
+            </button>
+            <button routerLink="/musteriislem" type="button" class="list-group-item list-group-item-action active">Musteri Islemleri</button>
+          </div>
+      </div>
+        <div class="col-9 my-2">
+            <form class="d-flex mb-2" role="search ">
+
+
+
+                <input class="form-control me-2" name="search" type="search" [(ngModel)]="input" placeholder="Musteri Arat" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit" (click)="onSearch()">Search</button>
+              </form>
+          
+
+              
+            <!-- Trigger Button -->
+      <button type="button" class="btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#kargoModalCreate">
+        Musteri ekle
+      </button>
+      
+      <!-- Modal Structure -->
+      <div class="modal fade" id="kargoModalCreate" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="myModalLabel">Musteri ekle</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col">
+                        <div class="mb-3">
+                            <label for="formGroupExampleInput" class="form-label" >TC No:</label>
+                            <input type="text" class="form-control" id="formGroupExampleInput" [(ngModel)]="EklenecekMusteri.tc_no">
+                          </div>
+                    </div>
+                    <div class="col">
+                        <div class="mb-3">
+                            <label for="formGroupExampleInput2" class="form-label">Ad:</label>
+                            <input type="text" class="form-control" id="formGroupExampleInput2"[(ngModel)]="EklenecekMusteri.ad" >
+                          </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="mb-3">
+                            <label for="formGroupExampleInput" class="form-label">Soyad:</label>
+                            <input type="text" class="form-control" id="formGroupExampleInput"[(ngModel)]="EklenecekMusteri.soyad" >
+                          </div>
+                    </div>
+                    <div class="col">
+                        <div class="mb-3">
+                            <label for="formGroupExampleInput2" class="form-label">Telefon No:</label>
+                            <input type="text" class="form-control" id="formGroupExampleInput2" [(ngModel)]="EklenecekMusteri.telefon_no" >
+                          </div>
+                    </div>
+                </div>  
+                <div class="row">
+                    <div class="col">
+                        <div class="mb-3">
+                            <label for="formGroupExampleInput" class="form-label">Il</label>
+                            <select class="form-select" aria-label="Default select example" (change)="loadIlceler()" [(ngModel)]="EklenecekMusteri.il">
+                                <option selected>Secmek icin tiklayin</option>
+                                @for (index of iller; track $index) {
+                                    <option value="{{index.id}}">{{index.il_adi}}</option>
+                                }
+                              </select>
+                          </div>
+                    </div>
+                    <div class="col">
+                        <div class="mb-3">
+                            <label for="formGroupExampleInput" class="form-label">Ilce</label>
+                            <select class="form-select" aria-label="Default select example" [(ngModel)]="EklenecekMusteri.ilce">
+                                <option selected>Secmek icin tiklayin</option>
+                                @for (index of ilceler_update; track $index) {
+                                    <option value="{{index.id}}">{{index.ilce_adi}}</option>
+                                }
+                              </select>
+                          </div>
+                    </div>
+                </div>  
+                <div class="row">
+                    <div class="col">
+                        <div class="mb-3">
+                            <label for="formGroupExampleInput" class="form-label">Mah/sokak:</label>
+                            <input type="text" class="form-control" id="formGroupExampleInput" [(ngModel)]="EklenecekMusteri.mah_sokak">
+                          </div>
+                    </div>
+                    <div class="col">
+                        <div class="mb-3">
+                            <label for="formGroupExampleInput2" class="form-label">No:</label>
+                            <input type="text" class="form-control" id="formGroupExampleInput2" [(ngModel)]="EklenecekMusteri.numara">
+                          </div>
+                    </div>
+                </div>  
+                
+                <div class="row">
+                    <div class="col">
+                        <div class="mb-3">
+                            <label for="formGroupExampleInput" class="form-label">Acik Adres:</label>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" [(ngModel)]="EklenecekMusteri.acik_adres"></textarea>
+                          </div>
+                    </div>
+                </div>    
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+              <button type="button" class="btn btn-primary" (click)="createMusteri()" data-bs-dismiss="modal">Ekle</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
+               
+              <div *ngIf="musteriDetail != null " class="card mb-2">
+                <h5 class="card-header">Musteri Bilgileri</h5>
+                <div class="card-body">
+                  <h5 class="card-title">TC No: {{musteriDetail.tc_no}}</h5>
+                  <h5 class="card-title">Ad Soyad: {{musteriDetail.ad}} {{musteriDetail.soyad}}</h5>
+                  <h5 class="card-title">Telefon No: {{musteriDetail.telefon_no}}</h5>
+                  <h5 class="card-title">Il: {{musteriDetail.il}}</h5>
+                  <h5 class="card-title">Ilce: {{musteriDetail.ilce}}</h5>
+                  <h5 class="card-title">Mah/Sokak: {{musteriDetail.mah_sokak}}</h5>
+                  <h5 class="card-title">Numara: {{musteriDetail.numara}}</h5>
+                  <h5 class="card-title">Acik Adres: {{musteriDetail.acik_adres}}</h5>
+                  </div>
+                </div>
+        <!-- @for (index of Kargolar(); track $index) {
+            <p>{{index.id}} 
+        } -->
+        
+
+
+        <button type="button " class="btn btn-success" data-bs-toggle="modal" data-bs-target="#kargoModalUpdate">
+            Musteri Guncelle
+          </button>
+          
+          <!-- Modal Structure -->
+          <div class="modal fade" id="kargoModalUpdate" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="myModalLabel">Musteri Guncelle</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+                    <div class="col">
+                        <div class="mb-3">
+                            <label for="formGroupExampleInput" class="form-label" >Tc No:</label>
+                            <input type="text" class="form-control" id="formGroupExampleInput" [(ngModel)]="GuncellenecekMusteri.tc_no">
+                          </div>
+                    </div>
+                    <div class="col">
+                        <div class="mb-3">
+                            <label for="formGroupExampleInput2" class="form-label">Ad:</label>
+                            <input type="text" class="form-control" id="formGroupExampleInput2"[(ngModel)]="GuncellenecekMusteri.ad" >
+                          </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="mb-3">
+                            <label for="formGroupExampleInput" class="form-label">Soyad:</label>
+                            <input type="text" class="form-control" id="formGroupExampleInput"[(ngModel)]="GuncellenecekMusteri.soyad" >
+                          </div>
+                    </div>
+                    <div class="col">
+                        <div class="mb-3">
+                            <label for="formGroupExampleInput2" class="form-label">Telefon No:</label>
+                            <input type="text" class="form-control" id="formGroupExampleInput2" [(ngModel)]="GuncellenecekMusteri.telefon_no" >
+                          </div>
+                    </div>
+                </div>  
+                <div class="row">
+                    <div class="col">
+                        <div class="mb-3">
+                            <label for="formGroupExampleInput" class="form-label">Il</label>
+                            <select class="form-select" aria-label="Default select example" (change)="loadIlcelerUpdate()" [(ngModel)]="GuncellenecekMusteri.il">
+                                <option selected>Secmek icin tiklayin</option>
+                                @for (index of iller; track $index) {
+                                    <option value="{{index.id}}">{{index.il_adi}}</option>
+                                }
+                              </select>
+                          </div>
+                    </div>
+                    <div class="col">
+                        <div class="mb-3">
+                            <label for="formGroupExampleInput" class="form-label">Ilce</label>
+                            <select class="form-select" aria-label="Default select example" [(ngModel)]="GuncellenecekMusteri.ilce">
+                                <option selected>Secmek icin tiklayin</option>
+                                @for (index of ilceler; track $index) {
+                                    <option value="{{index.id}}">{{index.ilce_adi}}</option>
+                                }
+                              </select>
+                          </div>
+                    </div>
+                </div>  
+                <div class="row">
+                    <div class="col">
+                        <div class="mb-3">
+                            <label for="formGroupExampleInput" class="form-label">Mah/sokak:</label>
+                            <input type="text" class="form-control" id="formGroupExampleInput" [(ngModel)]="GuncellenecekMusteri.mah_sokak">
+                          </div>
+                    </div>
+                    <div class="col">
+                        <div class="mb-3">
+                            <label for="formGroupExampleInput2" class="form-label">No:</label>
+                            <input type="text" class="form-control" id="formGroupExampleInput2" [(ngModel)]="GuncellenecekMusteri.numara">
+                          </div>
+                    </div>
+                </div>  
+                
+                <div class="row">
+                    <div class="col">
+                        <div class="mb-3">
+                            <label for="formGroupExampleInput" class="form-label">Acik Adres:</label>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" [(ngModel)]="GuncellenecekMusteri.acik_adres"></textarea>
+                          </div>
+                    </div>
+                </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary" (click)="updateMusteri()" data-bs-dismiss="modal">Save changes</button>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+          <button type="button" class="btn btn-danger mx-2" data-bs-toggle="modal" data-bs-target="#kargoModalDelete">
+            Musteri Sil
+          </button>
+          
+          <!-- Modal Structure -->
+          <div class="modal fade " id="kargoModalDelete" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-sm">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="myModalLabel">Silmek istediginize emin misiniz?</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  Secilen kargo bilgileri silinecektir
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+                  <button type="button" class="btn btn-danger" (click)="deleteMusteri()" data-bs-dismiss="modal" >Sil</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </main>
+  

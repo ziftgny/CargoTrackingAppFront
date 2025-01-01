@@ -1,0 +1,28 @@
+export type KargoDetailModel = {
+    takip_no:string;
+    gonderici_tc:string;
+    alici_tc:string;
+    kabul_tarihi:Date;
+    paket_turu_adi:string;
+    fiyat:number;
+    agirlik:number;
+    teslim_tarihi?:Date;
+    kargo_durumu_adi:string;
+    son_islem_tarihi?:Date;
+    teslim_alan_kisi?:string;
+    kurye_ad_soyad?:string;
+    // constructor() {
+    //     this.id=0;
+    //     this.gonderici_id=0;
+    //     this.alici_id=0;
+    //     this.kabul_tarihi=new Date(2023, 11, 28);
+    //     this.paket_turu=0;
+    //     this.fiyat=0;
+    //     this.agirlik=0;
+    //     this.teslim_tarihi=new Date(2023, 11, 28);
+    //     this.kargo_durumu_id=0;
+    //     this.son_islem_tarihi=new Date(2023, 11, 28);
+    //     this.teslim_alan_kisi='';
+    //     this.kurye_id=0;
+    // }
+}

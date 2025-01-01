@@ -1,0 +1,35 @@
+<main class="main">
+    <div class="container ">
+        <div class="row">
+          </div>
+        <div class="row">
+            <div class="col m-5">
+                
+                <form class="d-flex mb-2" role="search ">
+                  <input class="form-control me-2" name="search" type="search" [(ngModel)]="input" placeholder="Kargo Arat" aria-label="Search">
+                  <button class="btn btn-outline-success" type="submit" (click)="onSearch()">Search</button>
+                </form>
+                <div *ngIf="KargoDetail != null " class="card mb-2">
+                  <h5 class="card-header">Kargo Bilgileri</h5>  
+                  <div class="card-body">
+                    <h5 class="card-title">Takip No: {{KargoDetail.takip_no}}</h5>
+                    <h5 class="card-title">Gonderici TC: {{KargoDetail.gonderici_tc}}</h5>
+                    <h5 class="card-title">Alici TC: {{KargoDetail.alici_tc}}</h5>
+                    <h5 class="card-title">Kabul Tarihi: {{KargoDetail.kabul_tarihi}}</h5>
+                    <h5 class="card-title">Paket Turu: {{KargoDetail.paket_turu_adi}}</h5>
+                    <h5 class="card-title">Fiyat: {{KargoDetail.fiyat}}</h5>
+                    <h5 class="card-title">Agirlik: {{KargoDetail.agirlik}}</h5>
+                    <h5 class="card-title">Teslim Tarihi: {{KargoDetail.teslim_tarihi}}</h5>
+                    <h5 class="card-title">Kargo Durumu: {{KargoDetail.kargo_durumu_adi}}</h5>
+                    <h5 class="card-title">Son Islem Tarihi: {{KargoDetail.son_islem_tarihi}}</h5>
+                    <h5 class="card-title">Teslim Alan Kisi: {{KargoDetail.teslim_alan_kisi}}</h5>
+                    <h5 class="card-title">Kurye Adi: {{KargoDetail.kurye_ad_soyad}}</h5>
+                    
+                      </div>
+                  </div>
+              </div>
+          </div>
+        <div class="row">
+        </div>
+    </div>
+</main>

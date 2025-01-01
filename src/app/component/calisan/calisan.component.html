@@ -1,0 +1,32 @@
+<main class="main">
+    <div class="container ">
+      <div class="row">
+        <app-navbar/>
+      </div>
+      <div class="row">
+        <div class="col-3">
+          <div class="list-group my-2">
+            <button routerLink="/kargoislem"type="button" class="list-group-item list-group-item-action " aria-current="true">
+              Kargo Islemleri
+            </button>
+            <button routerLink="/musteriislem" type="button" class="list-group-item list-group-item-action">Musteri Islemleri</button>
+            <button routerLink="/calisanislem" type="button" class="list-group-item list-group-item-action active">
+                Calisan Islemleri
+              </button>
+          </div>
+      </div>
+        <div class="col-9 my-2">
+  
+          
+                    
+                  
+          
+        <!-- @for (index of Kargolar(); track $index) {
+            <p>{{index.id}} 
+        } -->
+        
+        </div>
+      </div>
+    </div>
+  </main>
+  

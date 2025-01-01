@@ -1,0 +1,309 @@
+<main class="main">
+  <div class="container ">
+    <div class="row">
+      <app-navbar/>
+    </div>
+    <div class="row">
+      <div class="col-3">
+        <div class="list-group my-2">
+          <button routerLink="/kargoislem"type="button" class="list-group-item list-group-item-action active" aria-current="true">
+            Kargo Islemleri
+          </button>
+          <button routerLink="/musteriislem" type="button" class="list-group-item list-group-item-action">
+            Musteri Islemleri
+          </button>
+        </div>
+    </div>
+      <div class="col-9 my-2">
+
+        <form class="d-flex mb-2" role="search ">
+          <input class="form-control me-2" name="search" type="search" [(ngModel)]="input" placeholder="Kargo Arat" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit" (click)="onSearch()">Search</button>
+        </form>
+        <!-- Trigger Button -->
+      <button type="button" class="btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#kargoModalCreate">
+          Kargo Ekle
+        </button>
+        
+        <!-- Modal Structure -->
+        <div class="modal fade" id="kargoModalCreate" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="myModalLabel">Kargo Ekle</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                  <div class="row">
+                      <div class="col">
+                          <div class="mb-3">
+                              <label for="formGroupExampleInput" class="form-label" >ID</label>
+                              <input type="text" class="form-control" id="formGroupExampleInput" [(ngModel)]="EklenecekKargo.takip_no">
+                            </div>
+                      </div>
+                      <div class="col">
+                          <div class="mb-3">
+                              <label for="formGroupExampleInput2" class="form-label">Gonderici TC</label>
+                              <input type="text" class="form-control" id="formGroupExampleInput2"[(ngModel)]="EklenecekKargo.gonderici_tc" >
+                            </div>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col">
+                          <div class="mb-3">
+                              <label for="formGroupExampleInput" class="form-label">Alici TC</label>
+                              <input type="text" class="form-control" id="formGroupExampleInput"[(ngModel)]="EklenecekKargo.alici_tc" >
+                            </div>
+                      </div>
+                      <div class="col">
+                          <div class="mb-3">
+                              <label for="formGroupExampleInput2" class="form-label">Kabul Tarihi</label>
+                              <input type="date" class="form-control" id="formGroupExampleInput2" [(ngModel)]="EklenecekKargo.kabul_tarihi" >
+                            </div>
+                      </div>
+                  </div>  
+                  <div class="row">
+                      <div class="col">
+                          <div class="mb-3">
+                              <label for="formGroupExampleInput" class="form-label">Paket Turu</label>
+                              <select class="form-select" aria-label="Default select example" [(ngModel)]="EklenecekKargo.paket_turu_id">
+                                  <option selected>Secmek icin tiklayin</option>
+                                  @for (index of paket_turleri; track $index) {
+                                      <option value="{{index.id}}">{{index.tur_adi}}</option>
+                                  }
+                                </select>
+                            </div>
+                      </div>
+                      <div class="col">
+                          <div class="mb-3">
+                              <label for="formGroupExampleInput2" class="form-label">Fiyat</label>
+                              <input type="text" class="form-control" id="formGroupExampleInput2" [(ngModel)]="EklenecekKargo.fiyat" >
+                            </div>
+                      </div>
+                  </div>  
+                  <div class="row">
+                      <div class="col">
+                          <div class="mb-3">
+                              <label for="formGroupExampleInput" class="form-label">Agirlik</label>
+                              <input type="text" class="form-control" id="formGroupExampleInput" [(ngModel)]="EklenecekKargo.agirlik">
+                            </div>
+                      </div>
+                      <div class="col">
+                          <div class="mb-3">
+                              <label for="formGroupExampleInput2" class="form-label">Teslim Tarihi</label>
+                              <input type="date" class="form-control" id="formGroupExampleInput2" [(ngModel)]="EklenecekKargo.teslim_tarihi">
+                            </div>
+                      </div>
+                  </div>  
+                  <div class="row">
+                      <div class="col">
+                          <div class="mb-3">
+                              <label for="formGroupExampleInput" class="form-label">Kargo Durumu</label>
+                              <select class="form-select" aria-label="Default select example" [(ngModel)]="EklenecekKargo.kargo_durumu_id">
+                                  <option selected>Secmek icin tiklayin</option>
+                                  @for (index of kargo_durumlari; track $index) {
+                                      <option value="{{index.id}}">{{index.durum_adi}}</option>
+                                  }
+                                </select>
+                            </div>
+                      </div>
+                      <div class="col">
+                          <div class="mb-3">
+                              <label for="formGroupExampleInput2" class="form-label">Son Islem Tarihi</label>
+                              <input type="date" class="form-control" id="formGroupExampleInput2" [(ngModel)]="EklenecekKargo.son_islem_tarihi">
+                            </div>
+                      </div>
+                  </div> 
+                  <div class="row">
+                      <div class="col">
+                          <div class="mb-3">
+                              <label for="formGroupExampleInput" class="form-label">Teslim Alan Kisi</label>
+                              <input type="text" class="form-control" id="formGroupExampleInput" [(ngModel)]="EklenecekKargo.teslim_alan_kisi" >
+                            </div>
+                      </div>
+                      <div class="col">
+                          <div class="mb-3">
+                              <label for="formGroupExampleInput2" class="form-label">Kurye</label>
+                              <select class="form-select" aria-label="Default select example" [(ngModel)]="EklenecekKargo.kurye_id">
+                                @for (index of kuryeler; track $index) {
+                                    <option value="{{index.id}}">{{index.id}} {{index.ad}} {{index.soyad}}</option>
+                                }
+                              </select>
+                            </div>
+                      </div>
+                  </div>    
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+                <button type="button" class="btn btn-primary" (click)="CreateKargo()" data-bs-dismiss="modal">Ekle</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div *ngIf="KargoDetail != null " class="card mb-2">
+          <h5 class="card-header">Kargo Bilgileri</h5>
+          <div class="card-body">
+            <h5 class="card-title">Takip No: {{KargoDetail.takip_no}}</h5>
+            <h5 class="card-title">Gonderici TC: {{KargoDetail.gonderici_tc}}</h5>
+            <h5 class="card-title">Alici TC: {{KargoDetail.alici_tc}}</h5>
+            <h5 class="card-title">Kabul Tarihi: {{KargoDetail.kabul_tarihi}}</h5>
+            <h5 class="card-title">Paket Turu: {{KargoDetail.paket_turu_adi}}</h5>
+            <h5 class="card-title">Fiyat: {{KargoDetail.fiyat}}</h5>
+            <h5 class="card-title">Agirlik: {{KargoDetail.agirlik}}</h5>
+            <h5 class="card-title">Teslim Tarihi: {{KargoDetail.teslim_tarihi}}</h5>
+            <h5 class="card-title">Kargo Durumu: {{KargoDetail.kargo_durumu_adi}}</h5>
+            <h5 class="card-title">Son Islem Tarihi: {{KargoDetail.son_islem_tarihi}}</h5>
+            <h5 class="card-title">Teslim Alan Kisi: {{KargoDetail.teslim_alan_kisi}}</h5>
+            <h5 class="card-title">Kurye Adi: {{KargoDetail.kurye_ad_soyad}}</h5>
+            <button type="button " class="btn btn-success" data-bs-toggle="modal" data-bs-target="#kargoModalUpdate">
+              Kargo Guncelle
+            </button>
+            
+            <!-- Modal Structure -->
+            <div class="modal fade" id="kargoModalUpdate" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="myModalLabel">Kargo Guncelle</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="row">
+                      <div class="col">
+                          <div class="mb-3">
+                              <label for="formGroupExampleInput" class="form-label" >ID</label>
+                              <input type="text" class="form-control" id="formGroupExampleInput" [(ngModel)]="GuncellenecekKargo.takip_no">
+                            </div>
+                      </div>
+                      <div class="col">
+                          <div class="mb-3">
+                              <label for="formGroupExampleInput2" class="form-label">Gonderici TC</label>
+                              <input type="text" class="form-control" id="formGroupExampleInput2"[(ngModel)]="GuncellenecekKargo.gonderici_tc" >
+                            </div>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col">
+                          <div class="mb-3">
+                              <label for="formGroupExampleInput" class="form-label">Alici TC</label>
+                              <input type="text" class="form-control" id="formGroupExampleInput"[(ngModel)]="GuncellenecekKargo.alici_tc" >
+                            </div>
+                      </div>
+                      <div class="col">
+                          <div class="mb-3">
+                              <label for="formGroupExampleInput2" class="form-label">Kabul Tarihi</label>
+                              <input type="date" class="form-control" id="formGroupExampleInput2" [(ngModel)]="GuncellenecekKargo.kabul_tarihi" >
+                            </div>
+                      </div>
+                  </div>  
+                  <div class="row">
+                      <div class="col">
+                          <div class="mb-3">
+                              <label for="formGroupExampleInput" class="form-label">Paket Turu</label>
+                              <select class="form-select" aria-label="Default select example" [(ngModel)]="GuncellenecekKargo.paket_turu_id">
+                                  <option selected>Secmek icin tiklayin</option>
+                                  @for (index of paket_turleri; track $index) {
+                                      <option value="{{index.id}}">{{index.tur_adi}}</option>
+                                  }
+                                </select>
+                            </div>
+                      </div>
+                      <div class="col">
+                          <div class="mb-3">
+                              <label for="formGroupExampleInput2" class="form-label">Fiyat</label>
+                              <input type="text" class="form-control" id="formGroupExampleInput2" [(ngModel)]="GuncellenecekKargo.fiyat" >
+                            </div>
+                      </div>
+                  </div>  
+                  <div class="row">
+                      <div class="col">
+                          <div class="mb-3">
+                              <label for="formGroupExampleInput" class="form-label">Agirlik</label>
+                              <input type="text" class="form-control" id="formGroupExampleInput" [(ngModel)]="GuncellenecekKargo.agirlik">
+                            </div>
+                      </div>
+                      <div class="col">
+                          <div class="mb-3">
+                              <label for="formGroupExampleInput2" class="form-label">Teslim Tarihi</label>
+                              <input type="date" class="form-control" id="formGroupExampleInput2" [(ngModel)]="GuncellenecekKargo.teslim_tarihi">
+                            </div>
+                      </div>
+                  </div>  
+                  <div class="row">
+                      <div class="col">
+                          <div class="mb-3">
+                              <label for="formGroupExampleInput" class="form-label">Kargo Durumu</label>
+                              <select class="form-select" aria-label="Default select example" [(ngModel)]="GuncellenecekKargo.kargo_durumu_id">
+                                  <option selected>Secmek icin tiklayin</option>
+                                  @for (index of kargo_durumlari; track $index) {
+                                      <option value="{{index.id}}">{{index.durum_adi}}</option>
+                                  }
+                                </select>
+                            </div>
+                      </div>
+                      <div class="col">
+                          <div class="mb-3">
+                              <label for="formGroupExampleInput2" class="form-label">Son Islem Tarihi</label>
+                              <input type="date" class="form-control" id="formGroupExampleInput2" [(ngModel)]="GuncellenecekKargo.son_islem_tarihi">
+                            </div>
+                      </div>
+                  </div> 
+                  <div class="row">
+                      <div class="col">
+                          <div class="mb-3">
+                              <label for="formGroupExampleInput" class="form-label">Teslim Alan Kisi</label>
+                              <input type="text" class="form-control" id="formGroupExampleInput" [(ngModel)]="GuncellenecekKargo.teslim_alan_kisi" >
+                            </div>
+                      </div>
+                      <div class="col">
+                          <div class="mb-3">
+                              <label for="formGroupExampleInput2" class="form-label">Kurye</label>
+                              <select class="form-select" aria-label="Default select example" [(ngModel)]="GuncellenecekKargo.kurye_id">
+                                @for (index of kuryeler; track $index) {
+                                    <option value="{{index.id}}">{{index.id}} {{index.ad}} {{index.soyad}}</option>
+                                }
+                              </select>
+                            </div>
+                      </div>
+                  </div>    
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" (click)="UpdateKargo()" data-bs-dismiss="modal">Save changes</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button type="button" class="btn btn-danger mx-2" data-bs-toggle="modal" data-bs-target="#kargoModalDelete">
+              Kargoyu Sil
+            </button>
+            
+            <!-- Modal Structure -->
+            <div class="modal fade " id="kargoModalDelete" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered modal-sm">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="myModalLabel">Silmek istediginize emin misiniz?</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    Secilen kargo bilgileri silinecektir
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+                    <button type="button" class="btn btn-danger" (click)="DeleteKargo()" data-bs-dismiss="modal" >Sil</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <!-- @for (index of Kargolar(); track $index) {
+          <p>{{index.id}} 
+      } -->
+      
+      </div>
+    </div>
+  </div>
+</main>
